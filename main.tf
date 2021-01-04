@@ -34,7 +34,7 @@ resource "null_resource" "jitsiInstaller" {
       user        = "root"
       private_key = file(var.ssh_key_file)
       host        = var.fqdn
-      timeout     = 30m
+      timeout     = "30m"
     }
   }
 
