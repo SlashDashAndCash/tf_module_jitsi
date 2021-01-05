@@ -39,12 +39,15 @@ resource "null_resource" "jitsiInstaller" {
   }
 
   triggers = {
-    issuer = var.fullchain_pem
+    # Run jitsiInstaller again if install script, server or certificate changes.
+    issuer = join(";", [local.inline_version, var.server_id, md5(var.fullchain_pem)])
   }
 }
 
 
 locals {
+  inline_version = "v0.1.0"
+
   rules_v4 = <<EOT
 *filter
 :INPUT DROP [0:0]
