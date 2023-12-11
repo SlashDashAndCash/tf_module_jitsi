@@ -17,6 +17,7 @@ resource "null_resource" "jitsiInstaller" {
       "echo 'jitsi-meet-web-config jitsi-meet/cert-choice select I want to use my own certificate' | debconf-set-selections",
       "echo 'jitsi-meet-web-config jitsi-meet/cert-path-key string /etc/ssl/${var.fqdn}.key' | debconf-set-selections",
       "echo 'jitsi-meet-web-config jitsi-meet/cert-path-crt string /etc/ssl/${var.fqdn}.crt' | debconf-set-selections",
+      "echo 'jitsi-meet-web-config jitsi-meet/jaas-choice select false' | debconf-set-selections",
       "echo *** Upgrade system and install Jitsi",
       "apt-get update",
       "apt-get install -y jitsi-meet",
@@ -49,7 +50,7 @@ resource "null_resource" "jitsiInstaller" {
 
 
 locals {
-  inline_version = "v0.1.0"
+  inline_version = "v0.2.0"
 
   rules_v4 = <<EOT
 *filter
